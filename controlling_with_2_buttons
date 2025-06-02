@@ -1,0 +1,36 @@
+#include <ESP32Servo.h>
+#define button1 12 //moving anti-clockwise
+#define button2 14  //moving clock-wise
+Servo myServo;
+int position =90;  //at the middle
+const int stepSize=2;//will move at an angle of 2 degree
+const int minAngle=0;
+const int maxAngle=180;
+void setup() {
+pinMode(button1,INPUT_PULLUP);
+pinMode(button2,INPUT_PULLUP);
+myServo.attach(2);
+myServo.write(position);//initialized at the mid position
+}
+
+void loop() {
+      bool button1pressed=digitalRead(button1)==LOW;
+      bool button2pressed=digitalRead(button2)==LOW;
+      if(button1pressed && position<maxAngle){
+        position+=stepSize;  //moving clockwise
+        myServo.write(position);
+        delay(20);
+      }
+      else if(button2pressed && position>minAngle){
+        position-=stepSize;  //moving  anti-clockwise
+        myServo.write(position);
+        delay(20);
+      }
+
+    
+ }
+       
+    
+
+
+
