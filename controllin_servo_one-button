@@ -1,0 +1,21 @@
+#include <ESP32Servo.h>
+#define button 12  //the input button
+Servo myServo;
+int position =0;
+bool buttonstate=HIGH;
+void setup() {
+pinMode(button,INPUT_PULLUP);
+myServo.attach(2);  //gpio 2 for servo
+myServo.write(position);
+}
+
+void loop() {
+      bool currentButton=digitalRead(button);
+      if(currentButton==LOW && buttonstate==HIGH){
+        position=(position==0)?180:0;
+        myServo.write(position);
+        delay(1000);  //gotta wait ` sec
+      }
+       
+       buttonstate=currentButton;
+}
